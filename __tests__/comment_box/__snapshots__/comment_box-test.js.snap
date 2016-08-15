@@ -1,0 +1,6 @@
+exports[`CommentBox is a div with text 1`] = `
+<div
+  className="commentBox">
+  Hello, world!, I am a CommentBox.
+</div>
+`;
