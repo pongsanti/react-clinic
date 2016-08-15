@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "jest-cli": "*"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
+  }
+}
