@@ -13,7 +13,8 @@
   },
   "scripts": {
     "test": "jest",
-    "watch": "watchify -t [babelify] main.jsx -o build/bundle.js -v",
+    "_watch": "watchify -t [babelify] main.jsx -o build/bundle.js -v",
+    "watch": "watchify -t [babelify] main.jsx -o D:/DevArea/rails/clinic/app/assets/javascripts/components/bundle.js -v",
     "build": "browserify -t [babelify] main.jsx | uglifyjs > build/bundle.js"
   },
   "jest": {
