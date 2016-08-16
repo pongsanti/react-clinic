@@ -24,10 +24,13 @@ var DrugLotSelect = React.createClass({
       <select
         ref="select"
         className="form-control selectpicker"
-        title="Please select drug lot..."
         data-live-search="true"
+        data-size="10"
+        data-width="auto"
+        data-style="btn-primary"        
         onChange={this.handleChange}>
-        {optionNodes}
+          <option value="-1">Nothing selected</option>
+          {optionNodes}
       </select>
     ); 
   }

@@ -3,11 +3,6 @@ var React = require('react');
 var DrugSelect = require('./drug_select.jsx');
 var DrugLotSelect = require('./drug_lot_select.jsx');
 
-var drug_lots = [
-  {id: 1, name: "Amro lot 1"},
-  {id: 2, name: "Amro lot 2"}
-];
-
 var DrugSelection = React.createClass({
   getInitialState: function() {
     return {
@@ -22,9 +17,8 @@ var DrugSelection = React.createClass({
     }.bind(this));
   },
 
-  onDrugSelected: function(drug_id) {
+  onDrugSelectChange: function(drug_id) {
     var url = "/drugs/" + drug_id + "/drug_ins.json";
-    //console.log(drug_id);
     this.serverRequest = $.get(url, function(result) {
       this.setState({drug_lots: result});
     }.bind(this));
@@ -38,7 +32,7 @@ var DrugSelection = React.createClass({
           <DrugSelect
             ref="drugSelect"
             drugs={this.state.drugs}
-            onDrugSelected={this.onDrugSelected}
+            onDrugSelectChange={this.onDrugSelectChange}
           />
         </div>
         <div className="col-sm-1 control-label text-right">Drug Lot:</div>

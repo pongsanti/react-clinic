@@ -6,15 +6,17 @@ var DrugSelect = React.createClass({
 
   handleChange: function() {
     this.selectValue = this.refs.select.value;
-    console.log(this.selectValue);
-    this.props.onDrugSelected(this.refs.select.value);
+    if(this.selectValue != -1)
+      this.props.onDrugSelectChange(this.refs.select.value);
+  },
+
+  // Don't render if it is the same drugs
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return this.props.drugs !== nextProps.drugs;
   },
 
   componentDidUpdate: function() {
     $(this.refs.select).selectpicker('refresh')
-    console.log('drug select refreshed with selected value ' + this.selectValue);
-    if(this.selectValue)
-      $(this.refs.select).selectpicker('val', this.selectValue);
   },
 
   render: function() {
@@ -28,10 +30,12 @@ var DrugSelect = React.createClass({
       <select
         ref="select"
         className="form-control selectpicker"
-        title="Please select drug..."
         data-live-search="true"
+        data-size="10"
+        data-width="auto"
         onChange={this.handleChange}>
-        {optionNodes}
+          <option value="-1">Nothing selected</option>
+          {optionNodes}
       </select>
     ); 
   }
