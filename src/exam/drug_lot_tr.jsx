@@ -4,8 +4,7 @@ var React = require('react');
 var DrugLotTr = React.createClass({
 
   handleClick: function() {
-    //$(this.refs.tr).addClass('success').siblings().removeClass('success');
-    this.props.onDrugLotSelected(this.props.value);
+    this.props.onDrugLotSelect(this.props.obj);
   },
 
   render: function() {
@@ -13,9 +12,10 @@ var DrugLotTr = React.createClass({
       <tr ref="tr"
           className="pointer"
           onClick={this.handleClick}>
-        <td></td>
-        <td className="text-right">{this.props.value}</td>
-        <td className="text-right">{this.props.balance}</td>
+        <td>{this.props.obj.drug.name}</td>
+        <td className="text-right">{this.props.obj.id}</td>
+        <td className="text-right">{this.props.obj.balance}</td>
+        <td className="text-right">{this.props.obj.drug.store_unit.title}</td>
       </tr>
     ); 
   }

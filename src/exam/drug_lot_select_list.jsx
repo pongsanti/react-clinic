@@ -5,16 +5,6 @@ var DrugLotText = require('./drug_lot_text.jsx');
 
 var DrugLotSelectList = React.createClass({
 
-  getInitialState: function() {
-    return {
-      selectedLot: ''
-    };
-  },
-
-  onDrugLotSelected: function(drugLogId) {
-    this.setState({selectedLot: drugLogId});
-  },
-
   render: function() {
   
     var self = this;
@@ -22,22 +12,21 @@ var DrugLotSelectList = React.createClass({
       return (
         <DrugLotTr
           key={drug_lot.id}
-          value={drug_lot.id}
-          balance={drug_lot.balance}
-          onDrugLotSelected={self.onDrugLotSelected}
+          obj={drug_lot}
+          onDrugLotSelect={self.props.onDrugLotSelect}
         />
       );
     });
 
     return (
       <div>
-        <DrugLotText value={this.state.selectedLot} />
         <table className="table table-hover table-striped table-condensed table-responsive">
           <thead>
             <tr>
-              <th></th>
+              <th>Drug Name</th>
               <th className="text-right">Lot ID</th>
               <th className="text-right">Balance</th>
+              <th className="text-right">Unit</th>
             </tr>
           </thead>
           <tbody>

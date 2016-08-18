@@ -2,12 +2,14 @@
 var React = require('react');
 var DrugSelect = require('./drug_select.jsx');
 var DrugLotSelectList = require('./drug_lot_select_list.jsx');
+var DrugLotText = require('./drug_lot_text.jsx')
 
 var DrugSelection = React.createClass({
   getInitialState: function() {
     return {
       drugs: [],
-      drug_lots: []
+      drug_lots: [],
+      selectedDrugLot: undefined
     };
   },
 
@@ -18,30 +20,46 @@ var DrugSelection = React.createClass({
   },
 
   onDrugSelectChange: function(drug_id) {
-    var url = "/drugs/" + drug_id + "/drug_ins.json";
-    this.serverRequest = $.get(url, function(result) {
-      this.setState({drug_lots: result});
-    }.bind(this));
+    var self = this;
+    if(drug_id == -1) {
+      this.setState({drug_lots: [], selectedDrugLot: undefined});
+    } else {
+      var url = "/drugs/" + drug_id + "/drug_ins.json";
+      this.serverRequest = $.get(url, function(result) {
+        self.setState({drug_lots: result["drug_ins"]});
+      });
+    }
+  },
+
+  onDrugLotSelect: function(obj) {
+    this.setState({selectedDrugLot: obj});
   },
 
   render: function() {
     return (
       <form className="form-horizontal">
         <div className="form-group">
-          <div className="col-sm-2 control-label text-right">Drug:</div>
-          <div className="col-sm-10">
+          <div className="col-sm-1 control-label text-right">Drug:</div>
+          <div className="col-sm-5">
             <DrugSelect
               ref="drugSelect"
               drugs={this.state.drugs}
               onDrugSelectChange={this.onDrugSelectChange}
             />
           </div>
+          <div className="col-sm-1 control-label text-right">Drug Lot:</div>
+          <div className="col-sm-5">
+            <DrugLotText
+              ref="drugLotText"
+              obj={this.state.selectedDrugLot}
+            />
+          </div>
         </div>
         <div className="form-group">
-          <div className="col-sm-2 control-label text-right">Drug Lot:</div>
-          <div className="col-sm-10">
+          <div className="col-sm-offset-1 col-sm-11">
             <DrugLotSelectList
               drug_lots={this.state.drug_lots}
+              onDrugLotSelect={this.onDrugLotSelect}
             />
           </div>
         </div>

@@ -5,9 +5,7 @@ var DrugSelectRow = require('./drug_select_row.jsx')
 var DrugSelect = React.createClass({
 
   handleChange: function() {
-    this.selectValue = this.refs.select.value;
-    if(this.selectValue != -1)
-      this.props.onDrugSelectChange(this.refs.select.value);
+    this.props.onDrugSelectChange(this.refs.select.value);
   },
 
   // Don't render if it is the same drugs
