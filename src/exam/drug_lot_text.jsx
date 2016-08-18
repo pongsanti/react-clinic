@@ -5,7 +5,7 @@ var DrugLotText = React.createClass({
 
   render: function() {
     return (
-      <input type="text" className="form-control" value={this.props.value} readOnly />
+      <input type="text" className="form-control btn-primary" value={this.props.value} />
     ); 
   }
 });
