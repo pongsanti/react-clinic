@@ -1,5 +1,7 @@
 // drug_selection.jsx
 var React = require('react');
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+
 var DrugSelect = require('./drug_select.jsx');
 var DrugLotSelectList = require('./drug_lot_select_list.jsx');
 var DrugLotText = require('./drug_lot_text.jsx')
@@ -9,7 +11,8 @@ var DrugSelection = React.createClass({
     return {
       drugs: [],
       drug_lots: [],
-      selectedDrugLot: undefined
+      selectedDrugLot: undefined,
+      showDrugLogList: false
     };
   },
 
@@ -22,20 +25,29 @@ var DrugSelection = React.createClass({
   onDrugSelectChange: function(drug_id) {
     var self = this;
     if(drug_id == -1) {
-      this.setState({drug_lots: [], selectedDrugLot: undefined});
+      this.setState({drug_lots: [], selectedDrugLot: undefined, showDrugLogList: false});
     } else {
       var url = "/drugs/" + drug_id + "/drug_ins.json";
       this.serverRequest = $.get(url, function(result) {
-        self.setState({drug_lots: result["drug_ins"]});
+        self.setState({drug_lots: result["drug_ins"], showDrugLogList: true});
       });
     }
   },
 
   onDrugLotSelect: function(obj) {
-    this.setState({selectedDrugLot: obj});
+    this.setState({selectedDrugLot: obj, showDrugLogList: false});
   },
 
   render: function() {
+    var drugLotList = null;
+    if(this.state.showDrugLogList) {
+      drugLotList = 
+        <DrugLotSelectList
+          drug_lots={this.state.drug_lots}
+          onDrugLotSelect={this.onDrugLotSelect}
+        />;
+    }
+
     return (
       <form className="form-horizontal">
         <div className="form-group">
@@ -57,10 +69,7 @@ var DrugSelection = React.createClass({
         </div>
         <div className="form-group">
           <div className="col-sm-offset-1 col-sm-11">
-            <DrugLotSelectList
-              drug_lots={this.state.drug_lots}
-              onDrugLotSelect={this.onDrugLotSelect}
-            />
+            {drugLotList}
           </div>
         </div>
       </form>

@@ -19,7 +19,7 @@ var DrugLotSelectList = React.createClass({
     });
 
     return (
-      <div>
+      <div className="panel panel-default">
         <table className="table table-hover table-striped table-condensed table-responsive">
           <thead>
             <tr>
