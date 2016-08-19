@@ -1,6 +1,5 @@
 // drug_selection.jsx
 var React = require('react');
-var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 var DrugSelect = require('./drug_select.jsx');
 var DrugLotSelectList = require('./drug_lot_select_list.jsx');
